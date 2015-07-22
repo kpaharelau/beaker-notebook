@@ -24,7 +24,12 @@
     var _subscriptions = {};
     return {
       init: function(sessionId, notebookModel) {
-        _subscriptions[sessionId] =
+        _subscriptions[sessionId] = [
+          $.cometd.subscribe('/request-latest-notebook-model', function(resp) {
+            if (resp.data.sessionId !== sessionId) { return; }
+
+            $.cometd.publish('/latest-notebook-model', {notebookJson: angular.toJson(notebookModel)});
+          }),
           $.cometd.subscribe("/namespace/" + sessionId, function(reply) {
             var name = reply.data.name;
             var value = reply.data.value;
@@ -55,11 +60,11 @@
                 $.cometd.publish("/service/namespace/receive", JSON.stringify(reply2));
               }
             }
-          });
+          })];
       },
       clear: function(sessionId) {
         if (sessionId) {
-          $.cometd.unsubscribe(_subscriptions[sessionId]);
+          _.invoke(_subscriptions[sessionId], $.cometd.unsubscribe);
           delete _subscriptions[sessionId];
         }
       }
