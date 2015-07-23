@@ -74,3 +74,4 @@ core/src/main/web/vendor/DataTables-1.10.7/extensions/Responsive
 core/src/main/web/vendor/DataTables-1.10.7/extensions/KeyTable
 core/src/main/web/vendor/DataTables-1.10.7/extensions/FixedHeader
 core/src/main/web/vendor/DataTables-1.10.7/examples
+plugin/cpp/src/main/cpp/libClingInterp.jnilib
