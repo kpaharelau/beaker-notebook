@@ -94,6 +94,10 @@ describe('notebook', function() {
       evalInLanguage('Html', '1+1', '1+1', done);
     });
 
+    it('R', function(done) {
+      evalInLanguage('R', '1+1', '[1] 2', done);
+    });
+
     it('JavaScript', function(done) {
       evalInLanguage('JavaScript', '1+1', '2', done);
     });
@@ -124,14 +128,6 @@ describe('notebook', function() {
 
     it('can set a cell language to Groovy', function(done) {
       expect(beakerPO.cellEvaluatorDisplay.getText()).toEqual('Groovy');
-      done();
-    });
-
-    it('can enter code into a cell and evaluate it', function(done) {
-      beakerPO.setCellInput('1+1');
-      beakerPO.evaluateCell();
-      beakerPO.waitForCellOutput();
-      expect(beakerPO.getCellOutput().getText()).toMatch('2');
       done();
     });
 
